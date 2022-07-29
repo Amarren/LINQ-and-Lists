@@ -42,7 +42,7 @@ namespace LINQ_and_Lists
 
             foreach (var element in priceSorted)
             {
-                Console.WriteLine(element);
+                Console.WriteLine($"{element}");
             }
 
             //displays invoices sorted by quantity
@@ -55,8 +55,48 @@ namespace LINQ_and_Lists
 
             foreach (var element in quantitySorted)
             {
-                Console.WriteLine(element);
+                Console.WriteLine($"{element}");
             }
+
+            //display InvoiceTotal
+            var invoiceTotal =
+                from e in invoices
+                let InvoiceTotal = e.Quantity * e.Price
+                orderby InvoiceTotal
+                select new { e.PartDescription, InvoiceTotal };
+
+            Console.WriteLine("\nSorted by Invoice Total");
+
+            foreach (var element in invoiceTotal)
+            {
+                Console.WriteLine($"{element}");
+            }
+
+            var between200to500 = from InvoiceTotal in invoiceTotal
+                                  where (InvoiceTotal >= 200M) && (InvoiceTotal <= 500M)
+                                  orderby InvoiceTotal
+                                  select new { InvoiceTotal.PartDescription, InvoiceTotal };
+
+            foreach (var element in between200to500)
+            {
+                Console.WriteLine($"{element}");
+            }
+
+            /*var between200to500 =
+                from e in invoices
+                let InvoiceTotal = e.Quantity * e.Price
+                where (InvoiceTotal >= 200M) && (InvoiceTotal <= 500M)
+                orderby InvoiceTotal, e.PartDescription
+                select new { e.PartDescription, InvoiceTotal };
+
+            Console.WriteLine("\nInvoice Totals between $200 to $500");
+
+            foreach (var element in between200to500)
+            {
+                Console.WriteLine($"{element}");
+            }*/
+
+
         }
     }
 }
