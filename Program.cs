@@ -72,31 +72,19 @@ namespace LINQ_and_Lists
                 Console.WriteLine($"{element}");
             }
 
-            var between200to500 = from InvoiceTotal in invoiceTotal
-                                  where (InvoiceTotal >= 200M) && (InvoiceTotal <= 500M)
-                                  orderby InvoiceTotal
-                                  select new { InvoiceTotal.PartDescription, InvoiceTotal };
+            //display InvoiceTotals between 200 and 500
+            var between200to500 = 
+                from e in invoiceTotal
+                where (e.InvoiceTotal >= 200M) && (e.InvoiceTotal <= 500M)
+                orderby e.InvoiceTotal
+                select new { e.PartDescription, e.InvoiceTotal };
+
+            Console.WriteLine("\nInvoice Total between $200 - $500");
 
             foreach (var element in between200to500)
             {
                 Console.WriteLine($"{element}");
             }
-
-            /*var between200to500 =
-                from e in invoices
-                let InvoiceTotal = e.Quantity * e.Price
-                where (InvoiceTotal >= 200M) && (InvoiceTotal <= 500M)
-                orderby InvoiceTotal, e.PartDescription
-                select new { e.PartDescription, InvoiceTotal };
-
-            Console.WriteLine("\nInvoice Totals between $200 to $500");
-
-            foreach (var element in between200to500)
-            {
-                Console.WriteLine($"{element}");
-            }*/
-
-
         }
     }
 }
